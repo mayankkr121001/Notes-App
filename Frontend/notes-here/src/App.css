@@ -1,0 +1,541 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=M+PLUS+Rounded+1c&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+}
+
+/* -------------------------------------------------------- HOME PAGE --------------------------------------------------------------*/
+
+.homeContainer,
+.notesContainer, .profileContainer{
+    height: fit-content;
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(60deg, rgb(0, 0, 0), #073516, rgb(73, 73, 45));
+    color: #ffffff;
+    /* backdrop-filter: blur(10px) brightness(0.3); */
+}
+
+/* HOME NAVBAR --------------------------------------------------------------------------------  */
+.homeNavbarContainer {
+    height: 80px;
+    padding: 10px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: linear-gradient(60deg,rgb(73, 73, 45), #073516, rgb(0, 0, 0)); */
+    /* background: linear-gradient(60deg, rgb(0, 0, 0), #073516, rgb(73, 73, 45));
+    box-shadow: 0px 2px 15px rgb(0, 0, 0); */
+}
+
+.homeLogoDiv,
+.notesLogoDiv {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.homeLogoDiv img,
+.notesLogoDiv img {
+    width: 40px;
+    height: 40px;
+}
+
+.homeContainer button,
+.formSignupBtn,
+.formSigninBtn {
+    padding: 7px 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background-color: #9be69d;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.homeContainer button:hover,
+.formSignupBtn:hover,
+.formSigninBtn:hover {
+    background-color: #7fc282;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+}
+
+/* HOME SECTION --------------------------------------------------------------------------------  */
+.homeSectionContainer {
+    padding: 0px 130px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.homeSectionDiv {
+    width: 750px;
+    margin: auto;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.homeSectionDiv h1 {
+    font-size: 55px;
+    letter-spacing: 2px;
+    padding: 15px 0px;
+}
+
+.homeSectionDiv p {
+    width: 550px;
+    margin: auto;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: rgb(186, 186, 186);
+    padding-bottom: 25px;
+}
+
+
+/* HOME FOOTER */
+/* .homeFooterContainer {
+    text-align: center; 
+    height: 50px;
+    background-color: #063715;
+     margin-top: 170px;
+    position: sticky;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+} */
+
+/* .homeFooterContainer p {
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: rgb(131, 131, 131);
+    
+} */
+
+
+/* SIGNUP / SIGNIN FORM --------------------------------------------------------------------------------  */
+.homeSigninSignupFormDiv {
+    padding: 70px 0px;
+}
+
+.signupDiv,
+.signinDiv {
+    width: 450px;
+    text-align: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 50px 30px 20px 30px;
+}
+
+.signupDiv h2,
+.signinDiv h2 {
+    padding-bottom: 20px;
+    color: rgb(44, 44, 44);
+}
+
+.signupInputDiv input,
+.signinInputDiv input {
+    width: 100%;
+    padding: 8px 10px;
+    margin: 10px 0px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(131, 131, 131);
+    color: black;
+    font-size: 15px;
+    letter-spacing: 1px;
+    /* border-radius: 5px; */
+}
+
+.formSignupBtnDiv,
+.formSigninBtnDiv {
+    padding: 20px;
+}
+
+.signupformSigninText,
+.signinformSignupText {
+    margin-top: 20px;
+    color: #474747;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.signupformSigninText:hover,
+.signinformSignupText:hover {
+    cursor: pointer;
+    color: #000000;
+}
+
+
+
+/* -------------------------------------------------------- NOTES PAGE --------------------------------------------------------------*/
+
+.notesNavbarContainerDesktop {
+    height: 90px;
+    padding: 0px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notesSearchAddBtnDiv {
+    display: flex;
+    align-items: center;
+}
+
+.notesSearchInput {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(42, 42, 42);
+    border-radius: 5px;
+    padding: 0px 20px;
+}
+
+.notesSearchInput input {
+    background-color: transparent;
+    width: 40vw;
+    border: none;
+    outline: none;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.notesSearchIcon img {
+    width: 20px;
+    height: 20px;
+}
+
+.notesAddNoteBtnDiv button {
+    height: 40px;
+    padding: 10px 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background-color: #9be69d;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.notesAddNoteBtnDiv button:hover {
+    background-color: #7fc282;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.notesProfileIconDiv {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    position: relative;
+}
+.notesProfileIconDiv:hover{
+    box-shadow: 0px 4px 20px black; 
+    transition: 0.2s ease-in-out;
+}
+
+.notesProfileIconDiv img {
+    width: 40px;
+    height: 40px;
+}
+.notesProfileIconDiv img:hover {
+    cursor: pointer;
+    /* box-shadow: 0px 5px 15px black; */
+}
+
+.notesProfileIconDropdownDiv {
+    width: 130px;
+    border-radius: 5px;
+    border: 1px solid rgb(85, 173, 132);
+    padding:10px 20px;
+    font-weight: 600;
+    position: absolute;
+    top: 40px ;
+    right: 0;
+    /* display: none; */
+}
+.notesProfileIconDropdownDiv > .YourProfileLink{
+    text-decoration:none;
+}
+.notesProfileIconDropdownDiv  p{
+    text-decoration:none;
+    color: white;
+}
+.notesProfileIconDropdownDiv p:hover{
+    color: rgb(140, 140, 140);
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+/* Notes Section */
+.notesSectionContainer {
+    padding: 20px 70px;
+}
+
+.notesSectionDiv>.allNotesLine {
+    display: none;
+    width: 103px;
+    height: 2px;
+    background-color: #474747;
+    border-radius: 5px;
+    margin-top: 2px;
+
+}
+
+.notesSectionDiv h2 {
+    letter-spacing: 1px;
+
+}
+
+.notesListDiv {
+    margin: 20px 0px;
+    display: grid;
+    /* grid-template-columns: repeat(5, auto); */
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+/* NOTES CARD */
+.cardDiv {
+    height: 160px;
+    /* width: 230px; */
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid rgb(85, 173, 132);
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardDiv h3 {
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.cardOptions {
+    text-align: right;
+}
+
+.cardOptions img {
+    width: 15px;
+    height: 15px;
+    margin-left: 10px;
+}
+
+
+/* -------------------------------------------------------- PROFILE PAGE --------------------------------------------------------------*/
+
+.profileDiv{
+    width: 100vw;
+    padding: 20px 100px;
+    letter-spacing: 1px;
+}
+.profileDiv h1{
+    font-size: 40px;
+}
+.profileDetailsDiv{
+    display: flex;
+    gap: 100px;
+    margin-top: 50px;
+}
+.profileImageDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profileImageDiv img{
+    width: 150px;
+    height: 150px;
+}
+.profileImageDiv button{
+    width: 100px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #9be69d;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+}
+.deleteImageBtn{
+    background-color: #eb4646 !important;
+}
+.deleteImageBtn:hover{
+    background-color: #bd3434 !important;
+}
+
+.profileImageDiv button:hover {
+    background-color: #7fc282;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.profileInfoDiv h2{
+    font-size: 35px;
+}
+.profileInfoDiv button{
+    width: 100px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #9be69d;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+}
+.profileInfoDiv button:hover {
+    background-color: #7fc282;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+
+/* Responsiveness------------ --------------------------------------------------------------------  */
+.notesNavbarContainerMobile {
+    /* height: 90px; */
+    padding: 20px 20px;
+}
+
+.notesLogoProfileDivMobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.notesSearchAddBtnDivMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 100vw; */
+}
+
+.notesSearchAddBtnDivMobile>.notesSearchInput input {
+    width: 100%;
+}
+
+
+@media screen and (max-width:1130px) {
+    .homeSectionContainer {
+        padding: 0px 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .homeSigninSignupFormDiv {
+        padding: 0px 0px 50px 0px;
+    }
+
+    .signupDiv,
+    .signinDiv {
+        width: 600px;
+    }
+}
+
+
+@media screen and (max-width:750px) {
+    .homeLogoDiv {
+        gap: 10px;
+    }
+
+    .homeLogoDiv img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .homeLogoDiv h2 {
+        font-size: 18px;
+    }
+
+    .homeNavbarContainer {
+        padding: 60px 20px;
+    }
+
+    .navSignupBtn {
+        display: none;
+    }
+
+    .homeSectionContainer {
+        padding: 0px 0px;
+    }
+
+    .homeSectionDiv {
+        text-align: center;
+        width: calc(100vw - 30px);
+        margin: auto;
+        padding: 80px 0px;
+    }
+
+    .homeSectionDiv h1 {
+        font-size: 30px;
+    }
+
+    .homeSectionDiv p {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    /* .homeFooterContainer p {
+        font-size: 12px;
+    } */
+
+    .homeSigninSignupFormDiv {
+        padding: 0px 0px 50px 0px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .signupDiv,
+    .signinDiv {
+        width: 100%;
+        text-align: center;
+        background-color: white;
+        border-radius: 0px;
+        padding: 50px 20px;
+    }
+
+    .profileDiv{
+        padding: 20px 40px;
+    }
+    .profileDetailsDiv{
+        display: flex;
+        gap: 50px;
+        margin-top: 50px;
+    }
+    .profileInfoDiv h2{
+        font-size: 25px;
+    }
+}
+
+
+@media screen and (max-width:500px) {
+    .notesSearchAddBtnDivMobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* width: 100vw; */
+    }
+
+    .notesSearchAddBtnDivMobile>.notesSearchInput {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .profileDetailsDiv{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        margin-top: 50px;
+    }
+}
