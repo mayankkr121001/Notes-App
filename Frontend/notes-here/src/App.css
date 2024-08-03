@@ -7,10 +7,14 @@
     font-family: "Nunito", sans-serif;
 }
 
+/* body{
+    background: linear-gradient(60deg, rgb(0, 0, 0), #073516, rgb(73, 73, 45));
+
+} */
 /* -------------------------------------------------------- HOME PAGE --------------------------------------------------------------*/
 
 .homeContainer,
-.notesContainer, .profileContainer{
+.notesContainer, .profileContainer, .openedNoteContainer{
     height: fit-content;
     min-height: 100vh;
     width: 100vw;
@@ -18,6 +22,7 @@
     color: #ffffff;
     /* backdrop-filter: blur(10px) brightness(0.3); */
 }
+
 
 /* HOME NAVBAR --------------------------------------------------------------------------------  */
 .homeNavbarContainer {
@@ -51,6 +56,7 @@
     font-weight: 700;
     letter-spacing: 1px;
     background-color: #9be69d;
+    /* background-color: #407cff; */
     border: none;
     border-radius: 5px;
     margin-left: 10px;
@@ -174,7 +180,21 @@
 
 
 /* -------------------------------------------------------- NOTES PAGE --------------------------------------------------------------*/
-
+.notesContainer{
+    position: relative;
+    /* height: fit-content;
+    min-height: 100vh; */
+    /* object-fit:cover; */
+}
+.notesContainerDimmed{
+    filter: brightness(40%);
+}
+.notesAddEditNoteFormContainer{
+    position: absolute;
+    top: 65px;
+    left:50%;
+    transform: translateX(-50%);
+}
 .notesNavbarContainerDesktop {
     height: 90px;
     padding: 0px 30px;
@@ -216,7 +236,8 @@
     padding: 10px 30px;
     font-weight: 700;
     letter-spacing: 1px;
-    background-color: #9be69d;
+    /* background-color: #9be69d; */
+    background-color: #407cff;
     border: none;
     border-radius: 5px;
     margin-left: 10px;
@@ -224,7 +245,8 @@
 }
 
 .notesAddNoteBtnDiv button:hover {
-    background-color: #7fc282;
+    /* background-color: #7fc282; */
+    background-color: #356adb;
     cursor: pointer;
     transition: 0.2s ease-in-out;
 }
@@ -253,7 +275,8 @@
 .notesProfileIconDropdownDiv {
     width: 130px;
     border-radius: 5px;
-    border: 1px solid rgb(85, 173, 132);
+    /* border: 1px solid rgb(85, 173, 132); */
+    border: 1px solid #407cff;
     padding:10px 20px;
     font-weight: 600;
     position: absolute;
@@ -306,28 +329,47 @@
 .cardDiv {
     height: 160px;
     /* width: 230px; */
-    background-color: transparent;
+    background-color: #ffffff;
+    /* background-color: transparent; */
     border-radius: 5px;
-    border: 1px solid rgb(85, 173, 132);
+    /* border: 1px solid rgb(85, 173, 132); */
+    /* border: 1px solid #315cb9; */
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: 0.2s ease-in-out;
+
+}
+.cardDiv:hover{
+    /* box-shadow: 0px 0px 5px #315cb9; */
+    transform: scale(1.02);
+    transition: 0.2s ease-in-out;
 }
 
 .cardDiv h3 {
-    color: #ffffff;
+    /* color: #ffffff; */
+    color: black;
     letter-spacing: 1px;
 }
 
 .cardOptions {
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
-
+.cardOptions img:first-child{
+    width: 30px;
+    height: 30px;
+}
 .cardOptions img {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     margin-left: 10px;
+}
+.cardOptions img:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 
@@ -335,7 +377,7 @@
 
 .profileDiv{
     width: 100vw;
-    padding: 20px 100px;
+    padding: 0px 100px;
     letter-spacing: 1px;
 }
 .profileDiv h1{
@@ -354,6 +396,7 @@
 .profileImageDiv img{
     width: 150px;
     height: 150px;
+    border-radius: 50%;
 }
 .profileImageDiv button{
     width: 100px;
@@ -361,7 +404,7 @@
     margin-top: 10px;
     font-size: 12px;
     font-weight: 700;
-    background-color: #9be69d;
+    background-color: #407cff;
     border: none;
     border-radius: 5px;
     transition: 0.2s ease-in-out;
@@ -374,30 +417,287 @@
 }
 
 .profileImageDiv button:hover {
-    background-color: #7fc282;
+    background-color: #356adb;
     cursor: pointer;
     transition: 0.2s ease-in-out;
 }
 .profileInfoDiv h2{
     font-size: 35px;
 }
-.profileInfoDiv button{
-    width: 100px;
-    padding: 5px 10px;
+.editProfileBtn, .changePasswordBtn{
+    /* width: 100px; */
+    padding: 5px 20px;
     margin-top: 10px;
+    margin-right: 20px;
     font-size: 12px;
     font-weight: 700;
-    background-color: #9be69d;
+    /* background-color: #9be69d; */
+    background-color: #407cff;
     border: none;
     border-radius: 5px;
     transition: 0.2s ease-in-out;
 }
-.profileInfoDiv button:hover {
-    background-color: #7fc282;
+.editProfileBtn:hover, .changePasswordBtn:hover {
+    background-color: #356adb;
     cursor: pointer;
     transition: 0.2s ease-in-out;
 }
 
+/* EDIT PROFILE/ CHANGE PASSWORD / UPLOAD IMAGE*/
+.editProfleChangePasswordFormContainer{
+    margin-top: 35px;
+}
+.editProfileContainer, .changePasswordContainer, .uploadImageContainer{
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: 500px;
+    border-radius: 10px;
+}
+.usenameDiv, .passwordDiv, .newPasswordDiv, .newConfirmPasswordDiv{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+.usenameDiv input ,.passwordDiv input,.newPasswordDiv input,.newConfirmPasswordDiv input{
+    width: 65% ;
+    padding: 4px 10px;
+    outline: none;
+    letter-spacing: 1px;
+}
+.editProfileSaveBtnDiv, .changePasswordSaveBtnDiv{
+    text-align: center;
+    margin-top: 40px;
+}
+.editProfileSaveBtn, .changePasswordSaveBtn, .uploadImageSaveBtn{
+    padding: 6px 90px;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #407cff;
+    border: none;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    transition: 0.2s ease-in-out;
+
+}
+.editProfileSaveBtn:hover, .changePasswordSaveBtn:hover, .uploadImageSaveBtn:hover {
+    background-color: #356adb;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+/* ----UPLOAD PROFILE PICTURE ----*/
+
+.uploadImageContainer input{
+    margin:10px 0px 20px 0px;
+}
+.uploadImageContainer input::file-selector-button{
+    background-color: #407cff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: 0.2s ease-in-out;
+
+}
+.uploadImageContainer input::file-selector-button:hover {
+    background-color: #356adb;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.uploadImageSaveBtnDiv{
+    margin-top: 10px;
+}
+
+/* ----------------------- ADD/ EDIT NEW NOTE FORM ------------------------*/
+.addEditNoteContainer{
+    background-color: white;
+    color: black;
+    width: 600px;
+    /* height: 82vh; */
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    /* overflow-y : scroll;
+    scroll-behavior: smooth; */
+}
+.addEditcloseIcon{
+    position: absolute;
+    right: 3%; 
+    width: 20px;
+    height: 20px;
+}
+.addEditcloseIcon:hover{
+    cursor: pointer;
+    transform: scaleZ(1.3);
+}
+.noteTitleContentDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0px;
+}
+.addedImageClass{
+    width: 100%;
+}
+.noteTitleInput, .noteContentInputArea{
+    padding: 7px 10px;
+    outline: none;
+    border: 1px solid rgb(142, 142, 142);
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+.noteContentInputArea{
+    height: 300px;
+    line-height: 22px;
+    overflow-y: scroll;
+}
+.noteContentInputArea img{
+    width: 100%;
+}
+.optionsSaveUpdateDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.optionsDiv img{
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+}
+.optionsDiv img:hover{
+    cursor: pointer;
+    transform: scale(0.95)
+}
+.optionsSaveUpdateDiv > .saveUpdateBtn{
+    background-color: #407cff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 50px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: 0.2s ease-in-out;
+}
+.optionsSaveUpdateDiv > .saveUpdateBtn:hover{
+    background-color: #356adb;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.optionsDiv{
+    position: relative;
+}
+.colorPopupDiv{
+    background-color: rgb(45, 45, 45);
+    width: 93.5%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 65px;
+}
+.colorBox{
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+}
+.colorBoxActive{
+    box-shadow: 0px 0px 0px 3px rgb(255, 255, 255);
+}
+.colorBox:nth-child(1){
+    background-color: #e77979;
+}
+.colorBox:nth-child(2){
+    background-color: #c4c25a;
+}
+.colorBox:nth-child(3){
+    background-color: #73c45a;
+}
+.colorBox:nth-child(4){
+    background-color: #68d0e0;
+}
+.colorBox:nth-child(5){
+    background-color: #f07ce2;
+}
+.imageSelectorDiv{
+    background-color: rgb(45, 45, 45);
+    width: 93.5%;
+    padding: 20px;
+    border-radius: 4px;
+    /* height: 100px; */
+    position: absolute;
+    bottom: 65px;
+}
+.imageSelectorDiv input::file-selector-button{
+    background-color: #407cff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 30px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: 0.2s ease-in-out;
+}
+.imageSelectorDiv input::file-selector-button:hover{
+    background-color: #356adb;
+    transition: 0.2s ease-in-out;
+}
+.imageSelectorDiv input{
+    color: white;
+}
+/* --------------------------------------------------------OPENED NOTE PAGE ------------------------------------------------------------- */
+
+.openedNoteNavbar, .profileNavbar{
+    height: 100px;
+    padding:25px 30px;
+}
+.openedNoteDiv{
+    background-color: white;
+    color: black;
+    width: 70%;
+    height: fit-content;
+    /* min-height: 430px; */
+    margin:auto;
+    /* margin-top: 10px; */
+    padding: 30px 50px;
+    border-radius: 5px;
+}
+.openedNoteContent{
+    margin: 50px 0px;
+}
+.openedNoteOptionsDiv{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 150px;
+}
+
+.openedNotecloseBtn, .openedNoteEditBtn, .openedNoteDeleteBtn{
+    background-color: #407cff;
+    width: 120px;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 0px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: 0.2s ease-in-out;
+} 
+.openedNotecloseBtn:hover, .openedNoteEditBtn:hover{
+    background-color: #356adb;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.openedNoteDeleteBtn{
+    background-color: #eb4646;
+    margin-left: 20px;
+}
+.openedNoteDeleteBtn:hover{
+    background-color:#bd3434;
+}
 
 /* Responsiveness------------ --------------------------------------------------------------------  */
 .notesNavbarContainerMobile {
@@ -442,6 +742,11 @@
     }
 }
 
+@media screen and (max-width:870px) {
+    .editProfileContainer, .changePasswordContainer, .uploadImageContainer{
+        width: 400px;
+    }
+}
 
 @media screen and (max-width:750px) {
     .homeLogoDiv {
@@ -507,14 +812,42 @@
     .profileDiv{
         padding: 20px 40px;
     }
-    .profileDetailsDiv{
-        display: flex;
-        gap: 50px;
-        margin-top: 50px;
-    }
     .profileInfoDiv h2{
         font-size: 25px;
     }
+    .profileDetailsDiv{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        margin-top: 50px;
+        /* width: 100vw; */
+    }
+    .profileInfoDiv{
+        width: 90vw;
+    }
+    .editProfleChangePasswordFormContainer{
+        width: 100%;
+    }
+    .editProfileContainer, .changePasswordContainer, .uploadImageContainer{
+        width: 100%;
+    }
+
+    .notesAddEditNoteFormContainer{
+        top: 100px;
+    }
+    .addEditNoteContainer{
+        width: 90vw;
+    }
+
+
+    .openedNoteDiv{
+        width: 90%;
+    }
+    .openedNotecloseBtn, .openedNoteEditBtn, .openedNoteDeleteBtn{
+        width: 80px;
+        padding: 5px 0px;
+    } 
 }
 
 
@@ -531,11 +864,18 @@
         margin-bottom: 15px;
         width: 100%;
     }
-    .profileDetailsDiv{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 50px;
-        margin-top: 50px;
+    .profileInfoDiv{
+        width: 95vw;
+    }
+    .openedNoteDiv{
+        background-color: white;
+        color: black;
+        width: 95%;
+        margin:auto;
+        padding: 20px 20px;
+        border-radius: 5px;
+    }
+    .openedNoteDeleteBtn{
+        margin-left: 10px;
     }
 }

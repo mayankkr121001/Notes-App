@@ -1,25 +1,53 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import NoteCard from "./NoteCard"
 import logo from "../assets/logo.png"
 import searchIcon from "../assets/searchIcon.png"
 import user from "../assets/user.png"
+import NoteCard from "./NoteCard"
+import AddEditNoteForm from "./AddEditNoteForm"
 
 function NotesPage() {
     const [navbarMobileFlag, setNavbarMobileFlag] = useState(false);
     const [profileIconClickedFlag, setProfileIconClickedFlag] = useState(false);
+    const [addNewNoteClickedFlag, setAddNewNoteClickedFlag] = useState(false);
 
+    const notesContainerheightRef = useRef(null);
+    const formheightRef = useRef(null);
+
+
+    function getAddImageFlag(flag){
+        // console.log(flag);
+        const originalHeight = notesContainerheightRef.current.offsetHeight;
+        if(addNewNoteClickedFlag== true && flag == true){
+            // console.log(formheightRef.current.offsetHeight);
+            
+            notesContainerheightRef.current.style.height = formheightRef.current.offsetHeight + formheightRef.current.offsetTop + 50 + "px";
+        }
+        else if (addNewNoteClickedFlag == false){
+            // console.log("form closed");
+            // console.log(originalHeight);
+            
+            notesContainerheightRef.current.style.height = "fit-content";
+        }
+    }
+    
+    
     useEffect(() => {
         if (window.innerWidth <= "950") {
-            console.log("mobile");
+            // console.log("mobile");
             setNavbarMobileFlag(true);
         }
     }, [])
+    useEffect(() =>{
+        // console.log("useEffect working");
+        getAddImageFlag();
+
+    }, [addNewNoteClickedFlag, getAddImageFlag]);
 
     function onProfileIconClick() {
         setProfileIconClickedFlag(true);
         setTimeout(() => {
-        setProfileIconClickedFlag(false);
+            setProfileIconClickedFlag(false);
         }, 3000);
     }
     function onProfileIconMouseOver() {
@@ -28,9 +56,16 @@ function NotesPage() {
     function onPrfileIconMouseOut() {
         setProfileIconClickedFlag(false);
     }
+
+    function onAddNewNoteClick() {
+        setAddNewNoteClickedFlag(true);
+    }
+    function closeAddEditNoteForm() {
+        setAddNewNoteClickedFlag(false);
+    }
     return (
         <>
-            <div className="notesContainer">
+            <div ref={notesContainerheightRef} className={`notesContainer ${addNewNoteClickedFlag && 'notesContainerDimmed'}`}>
 
                 {/*----------- NAVBAR ------------ */}
 
@@ -41,18 +76,18 @@ function NotesPage() {
                     </div>
                     <div className='notesSearchAddBtnDiv'>
                         <div className="notesSearchInput">
-                            <input type="text" placeholder='search' />
+                            <input type="text" placeholder='search'spellCheck="false" />
                             <div className="notesSearchIcon"><img src={searchIcon} alt="search icon" /></div>
                         </div>
                         <div className="notesAddNoteBtnDiv">
-                            <button className="notesAddNoteBtn">Add New Note</button>
+                            <button onClick={onAddNewNoteClick} className="notesAddNoteBtn">Add New Note</button>
                         </div>
                     </div>
                     <div className="notesProfileIconDiv">
                         <img onMouseOver={onProfileIconMouseOver} onMouseOut={onPrfileIconMouseOut} src={user} alt="user image" />
-                        {profileIconClickedFlag && <div onMouseOver={onProfileIconMouseOver} onMouseOut={onPrfileIconMouseOut}className="notesProfileIconDropdownDiv">
+                        {profileIconClickedFlag && <div onMouseOver={onProfileIconMouseOver} onMouseOut={onPrfileIconMouseOut} className="notesProfileIconDropdownDiv">
                             <Link className="YourProfileLink" to="/profile"><p className="yourProfile">Your Profile</p></Link>
-                            
+
                             <p className="logoutBtn">Logout</p>
                         </div>}
                     </div>
@@ -77,7 +112,7 @@ function NotesPage() {
                                 <div className="notesSearchIcon"><img src={searchIcon} alt="search icon" /></div>
                             </div>
                             <div className="notesAddNoteBtnDiv">
-                                <button className="notesAddNoteBtn">Add New Note</button>
+                                <button onClick={onAddNewNoteClick} className="notesAddNoteBtn">Add New Note</button>
                             </div>
                         </div>
                     </div>}
@@ -98,8 +133,13 @@ function NotesPage() {
                         </div>
                     </div>
                 </div>
-
             </div>
+            {addNewNoteClickedFlag &&
+                <div ref={formheightRef} className="notesAddEditNoteFormContainer">
+                    <AddEditNoteForm closeAddEditNoteForm={closeAddEditNoteForm} getAddImageFlag={getAddImageFlag} />
+                </div>
+            }
+            
         </>
     )
 }
