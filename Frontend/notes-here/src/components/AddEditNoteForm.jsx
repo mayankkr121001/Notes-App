@@ -3,7 +3,7 @@ import colors from "../assets/colors.png"
 import image from "../assets/image.png"
 import close from "../assets/close.png"
 
-function AddEditNoteForm({ closeAddEditNoteForm , getAddImageFlag}) {
+function AddEditNoteForm({ closeAddEditNoteForm , getAddImageFlag, addOrEdit}) {
   const [openColorSelectorFlag, setOpenColorSelectorFlag] = useState(false);
   const [openImageSelectorFlag, setOpenImageSelectorFlag] = useState(false);
   const [imageSelectedFlag, setImageSelectedFlag] = useState(false);
@@ -45,7 +45,7 @@ function AddEditNoteForm({ closeAddEditNoteForm , getAddImageFlag}) {
     <>
       <div className="addEditNoteContainer">
         <img onClick={closeAddEditNoteForm} className="addEditcloseIcon" src={close} alt='close button' />
-        <h2>Add Note</h2>
+        <h2>{addOrEdit} Note</h2>
         <div className="noteTitleContentDiv">
           <input className='noteTitleInput' type="text" placeholder='Title' spellCheck="false" />
           {imageSelectedFlag && <div contentEditable="false"><img className='addedImageClass' src={addedImage} alt="added Image" /></div>}
@@ -58,7 +58,7 @@ function AddEditNoteForm({ closeAddEditNoteForm , getAddImageFlag}) {
             <img onClick={onClickColorSelector} src={colors} alt="add color" />
             <img onClick={onClickImageSelector} src={image} alt="add image" />
           </div>
-          <button className="saveUpdateBtn">Add</button>
+          <button className="saveUpdateBtn">{addOrEdit}</button>
         </div>
         {openColorSelectorFlag &&
           <div onMouseLeave={() => setOpenColorSelectorFlag(false)} className="colorPopupDiv">

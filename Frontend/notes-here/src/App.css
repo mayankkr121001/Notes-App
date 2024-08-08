@@ -180,11 +180,8 @@
 
 
 /* -------------------------------------------------------- NOTES PAGE --------------------------------------------------------------*/
-.notesContainer{
+.notesContainer, .openedNoteContainer{
     position: relative;
-    /* height: fit-content;
-    min-height: 100vh; */
-    /* object-fit:cover; */
 }
 .notesContainerDimmed{
     filter: brightness(40%);

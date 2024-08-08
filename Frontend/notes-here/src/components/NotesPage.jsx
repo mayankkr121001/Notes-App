@@ -17,7 +17,6 @@ function NotesPage() {
 
     function getAddImageFlag(flag){
         // console.log(flag);
-        const originalHeight = notesContainerheightRef.current.offsetHeight;
         if(addNewNoteClickedFlag== true && flag == true){
             // console.log(formheightRef.current.offsetHeight);
             
@@ -34,7 +33,7 @@ function NotesPage() {
     
     useEffect(() => {
         if (window.innerWidth <= "950") {
-            // console.log("mobile");
+            // console.log("mobile"); 
             setNavbarMobileFlag(true);
         }
     }, [])
@@ -136,7 +135,7 @@ function NotesPage() {
             </div>
             {addNewNoteClickedFlag &&
                 <div ref={formheightRef} className="notesAddEditNoteFormContainer">
-                    <AddEditNoteForm closeAddEditNoteForm={closeAddEditNoteForm} getAddImageFlag={getAddImageFlag} />
+                    <AddEditNoteForm addOrEdit="Add" closeAddEditNoteForm={closeAddEditNoteForm} getAddImageFlag={getAddImageFlag} />
                 </div>
             }
             
