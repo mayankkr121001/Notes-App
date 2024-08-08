@@ -1,0 +1,20 @@
+{
+  "name": "notes-backend",
+  "version": "1.0.0",
+  "description": "a backend of a note keeping website",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "javascript",
+    "backend",
+    "notes"
+  ],
+  "author": "Mayank Kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
