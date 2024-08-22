@@ -8,8 +8,9 @@
 }
 
 /* body{
-    background: linear-gradient(60deg, rgb(0, 0, 0), #073516, rgb(73, 73, 45));
-
+    scrollbar-gutter: stable both-edges;
+    width: 100vw;
+    overflow: hidden;
 } */
 /* -------------------------------------------------------- HOME PAGE --------------------------------------------------------------*/
 
@@ -73,11 +74,14 @@
 
 /* HOME SECTION --------------------------------------------------------------------------------  */
 .homeSectionContainer {
-    padding: 0px 130px;
+    /* padding: 0px 80px; */
+    /* padding-right: 80px; */
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    width: 90%;
+    margin: auto;
 
 }
 
@@ -126,7 +130,8 @@
 
 /* SIGNUP / SIGNIN FORM --------------------------------------------------------------------------------  */
 .homeSigninSignupFormDiv {
-    padding: 70px 0px;
+    padding: 70px 50px 70px 0px;
+    /* padding-right: 50px; */
 }
 
 .signupDiv,
@@ -136,6 +141,14 @@
     background-color: white;
     border-radius: 25px;
     padding: 50px 30px 20px 30px;
+}
+.signupDiv > .signedUpMessage{
+    color: #4cbe50;
+    letter-spacing: 1px;
+}
+.signupDiv > .signUpError, .signinDiv > .signInError{
+    color: red;
+    letter-spacing: 1px;
 }
 
 .signupDiv h2,
@@ -148,7 +161,8 @@
 .signinInputDiv input {
     width: 100%;
     padding: 8px 10px;
-    margin: 10px 0px;
+    /* margin: 10px 0px; */
+    margin-top: 20px;
     outline: none;
     border: none;
     border-bottom: 1px solid rgb(131, 131, 131);
@@ -156,6 +170,12 @@
     font-size: 15px;
     letter-spacing: 1px;
     /* border-radius: 5px; */
+}
+.signupInputDiv p, .signinInputDiv p{
+    color: red;
+    text-align: left;
+    font-size: 12px;
+    /* margin-bottom: 10px; */
 }
 
 .formSignupBtnDiv,
@@ -727,6 +747,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
     }
 
     .homeSigninSignupFormDiv {
