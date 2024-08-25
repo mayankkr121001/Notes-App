@@ -44,11 +44,7 @@ function HomePage() {
                         <SignInForm onSignUpClick={onSignUpClick}/>
                     </div>}
                 </div>
-                {/* <div className="homeFooterContainer">
-                    <p>&copy; 2024 NotesHere. All rights reserved.</p>
-                </div> */}
-                {/* <SignUpForm/>
-        <SignInForm/> */}
+                
             </div>
 
         </>

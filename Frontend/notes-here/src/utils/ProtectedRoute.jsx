@@ -9,20 +9,7 @@ function ProtectedRoute() {
     return (
                 auth.isAuthenticated ? <Outlet/> : navigate("/") 
     )
-// function ProtectedRoute({Component, ...rest }) {
-//     const navigate = useNavigate();
-//     const auth = useAuth();
 
-//     return (
-
-//         <Route {...rest}>
-//                 {auth.isAuthenticated ?
-//                     <component/>
-//                     : navigate("/") }
-
-//         </Route>
-
-//     )
 
 }
 

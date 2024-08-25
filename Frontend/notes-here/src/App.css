@@ -400,6 +400,12 @@
 .profileDiv h1{
     font-size: 40px;
 }
+.profileDiv > .updateProfileImageMessage,  .profileDiv > .deleteProfileImageMessage, .profileDiv > .updateUsernameMessage,
+.profileDiv > .updatePasswordMessage{
+    color: rgb(109, 225, 124);
+    text-align: center;
+    font-weight: bold;
+}
 .profileDetailsDiv{
     display: flex;
     gap: 100px;
@@ -501,6 +507,12 @@
     background-color: #356adb;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+}
+
+.updateUsernamePasswordErrorClass{
+    text-align: center;
+    color: red;
+    font-weight: bold;
 }
 
 /* ----UPLOAD PROFILE PICTURE ----*/

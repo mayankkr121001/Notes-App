@@ -13,6 +13,12 @@ api.interceptors.response.use(response => response,
     async(error) =>{
         const originalRequest = error.config;
 
+        if (originalRequest.url === "/user/refresh-token") {
+            // Redirect to login if refresh token request fails
+            window.location.href = "/";
+            return Promise.reject(error);
+        }
+
         if(error.response.status === 401 && !originalRequest._retry){
             originalRequest._retry = true
 
@@ -21,11 +27,10 @@ api.interceptors.response.use(response => response,
                 return api(originalRequest)
             } catch (error) {
                 console.error("Refresh token expired or invalid", error);
-                // <Redirect to="/" />
-                navigate("/")
+                window.location.href="/";
             }
         }
-
+        
         return Promise.reject(error);
     }
 );

@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from "../assets/logo.png"
 import searchIcon from "../assets/searchIcon.png"
 import user from "../assets/user.png"
 import NoteCard from "./NoteCard"
 import AddEditNoteForm from "./AddEditNoteForm"
+
+import api from '../interceptors/axios.js'
 
 function NotesPage() {
     const [navbarMobileFlag, setNavbarMobileFlag] = useState(false);
@@ -16,16 +18,10 @@ function NotesPage() {
 
 
     function getAddImageFlag(flag){
-        // console.log(flag);
-        if(addNewNoteClickedFlag== true && flag == true){
-            // console.log(formheightRef.current.offsetHeight);
-            
+        if(addNewNoteClickedFlag== true && flag == true){  
             notesContainerheightRef.current.style.height = formheightRef.current.offsetHeight + formheightRef.current.offsetTop + 50 + "px";
         }
         else if (addNewNoteClickedFlag == false){
-            // console.log("form closed");
-            // console.log(originalHeight);
-            
             notesContainerheightRef.current.style.height = "fit-content";
         }
     }
@@ -62,6 +58,25 @@ function NotesPage() {
     function closeAddEditNoteForm() {
         setAddNewNoteClickedFlag(false);
     }
+
+
+    const navigate = useNavigate();
+    function onLogoutFunc(){
+        console.log("Logout");
+        api.post("/user/logout")
+        .then((response) =>{
+            // console.log(response);
+            navigate("/")   
+        })
+        .catch((error) =>{
+            console.log(error );    
+        })
+        
+    }
+
+
+
+
     return (
         <>
             <div ref={notesContainerheightRef} className={`notesContainer ${addNewNoteClickedFlag && 'notesContainerDimmed'}`}>
@@ -87,7 +102,7 @@ function NotesPage() {
                         {profileIconClickedFlag && <div onMouseOver={onProfileIconMouseOver} onMouseOut={onPrfileIconMouseOut} className="notesProfileIconDropdownDiv">
                             <Link className="YourProfileLink" to="/profile"><p className="yourProfile">Your Profile</p></Link>
 
-                            <p className="logoutBtn">Logout</p>
+                            <p onClick={onLogoutFunc} className="logoutBtn">Logout</p>
                         </div>}
                     </div>
                 </div>
@@ -101,7 +116,7 @@ function NotesPage() {
                                 <img onClick={onProfileIconClick} src={user} alt="user image" />
                                 {profileIconClickedFlag && <div className="notesProfileIconDropdownDiv">
                                     <p className="yourProfile">Your Profile</p>
-                                    <p className="logoutBtn">Logout</p>
+                                    <p onClick={onLogoutFunc} className="logoutBtn">Logout</p>
                                 </div>}
                             </div>
                         </div>

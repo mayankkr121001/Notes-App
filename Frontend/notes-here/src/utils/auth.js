@@ -8,7 +8,7 @@ function useAuth() {
         const checkAuthStatus = async () => {
             await api.get('/user/authorized-user')
                 .then((response) => {
-                    // console.log(response)
+                    // console.log(response.data.user)
                     setAuth({ isAuthenticated: true, user: response.data.user });
                 })
                 .catch((error) => {
