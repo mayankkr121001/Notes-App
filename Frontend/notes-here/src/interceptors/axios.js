@@ -15,7 +15,7 @@ api.interceptors.response.use(response => response,
 
         if (originalRequest.url === "/user/refresh-token") {
             // Redirect to login if refresh token request fails
-            window.location.href = "/";
+            // window.location.href = "/";
             return Promise.reject(error);
         }
 
@@ -27,7 +27,7 @@ api.interceptors.response.use(response => response,
                 return api(originalRequest)
             } catch (error) {
                 console.error("Refresh token expired or invalid", error);
-                window.location.href="/";
+                // window.location.href="/";
             }
         }
         

@@ -13,27 +13,52 @@ function NotesPage() {
     const [profileIconClickedFlag, setProfileIconClickedFlag] = useState(false);
     const [addNewNoteClickedFlag, setAddNewNoteClickedFlag] = useState(false);
 
+    const [notesArray, setNotesArray] = useState([]);
+
     const notesContainerheightRef = useRef(null);
     const formheightRef = useRef(null);
 
 
-    function getAddImageFlag(flag){
-        if(addNewNoteClickedFlag== true && flag == true){  
+    function getAddImageFlag(flag) {
+        if (addNewNoteClickedFlag == true && flag == true) {
             notesContainerheightRef.current.style.height = formheightRef.current.offsetHeight + formheightRef.current.offsetTop + 50 + "px";
         }
-        else if (addNewNoteClickedFlag == false){
+        else if (addNewNoteClickedFlag == false) {
             notesContainerheightRef.current.style.height = "fit-content";
         }
     }
-    
-    
+
+    // function updateNoteFlag(editFormFlag){
+    //     console.log(editFormFlag);
+        
+    // }
+
+
     useEffect(() => {
         if (window.innerWidth <= "950") {
             // console.log("mobile"); 
             setNavbarMobileFlag(true);
         }
+
     }, [])
-    useEffect(() =>{
+    useEffect(() => {
+        function getNotesFunc() {
+            api.get('/note/getNotes')
+                .then((response) => {
+                    // console.log(response.data.notes);
+                    setNotesArray(response.data.notes)
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+        getNotesFunc()
+        // console.log(notesArray);
+
+    }, [notesArray, addNewNoteClickedFlag])
+
+    useEffect(() => {
         // console.log("useEffect working");
         getAddImageFlag();
 
@@ -61,19 +86,27 @@ function NotesPage() {
 
 
     const navigate = useNavigate();
-    function onLogoutFunc(){
+    function onLogoutFunc() {
         console.log("Logout");
         api.post("/user/logout")
-        .then((response) =>{
-            // console.log(response);
-            navigate("/")   
-        })
-        .catch((error) =>{
-            console.log(error );    
-        })
-        
+            .then((response) => {
+                // console.log(response);
+                navigate("/")
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
     }
 
+
+    // function to navigate to NoteOpened page
+    function onNoteCardClickFunc(index){
+        // console.log("Note Clicked", index);
+        // console.log(notesArray[index]);
+        
+        navigate("/yourNote", {state: notesArray[index]})
+    }
 
 
 
@@ -90,7 +123,7 @@ function NotesPage() {
                     </div>
                     <div className='notesSearchAddBtnDiv'>
                         <div className="notesSearchInput">
-                            <input type="text" placeholder='search'spellCheck="false" />
+                            <input type="text" placeholder='search' spellCheck="false" />
                             <div className="notesSearchIcon"><img src={searchIcon} alt="search icon" /></div>
                         </div>
                         <div className="notesAddNoteBtnDiv">
@@ -136,14 +169,18 @@ function NotesPage() {
                     <div className="notesSectionDiv">
                         <h2>All Notes</h2>
                         <div className="allNotesLine"></div>
+                        {notesArray.length === 0 && <p className='notesListNoNotesMessage'>No notes availabe !</p>}
                         <div className="notesListDiv">
+                            {notesArray.map((elm, index) => (
+                                <NoteCard onNoteCardClickFunc={() => onNoteCardClickFunc(index)} key={index} title={elm.title} color={elm.color} />
+                            ))}
+
+                            {/* <NoteCard />
                             <NoteCard />
                             <NoteCard />
                             <NoteCard />
-                            <NoteCard />
-                            <NoteCard />
-                            <NoteCard />
-                            <NoteCard />
+                            <NoteCard /> */}
+
                         </div>
                     </div>
                 </div>
@@ -153,7 +190,7 @@ function NotesPage() {
                     <AddEditNoteForm addOrEdit="Add" closeAddEditNoteForm={closeAddEditNoteForm} getAddImageFlag={getAddImageFlag} />
                 </div>
             }
-            
+
         </>
     )
 }

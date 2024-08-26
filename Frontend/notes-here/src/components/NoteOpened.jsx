@@ -1,10 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import logo from "../assets/logo.png"
+// import image from "../assets/image.png"
 import AddEditNoteForm from "./AddEditNoteForm"
+import api from '../interceptors/axios.js'
 
 
 function NoteOpened() {
     const [editNoteClickedFlag, setEditNoteClickedFlag] = useState(false);
+
+    const [noteDetails, setNoteDetails] = useState({});
+    const location = useLocation();
+    const backColorRef = useRef(null);
+    const navigate = useNavigate();
 
     const notesContainerheightRef = useRef(null);
     const formheightRef = useRef(null);
@@ -12,9 +21,9 @@ function NoteOpened() {
 
     function getAddImageFlag(flag){
         // console.log(flag);
-        const originalHeight = notesContainerheightRef.current.offsetHeight;
-        if(editNoteClickedFlag== true && flag == true){
-            // console.log(formheightRef.current.offsetHeight);
+        // const originalHeight = notesContainerheightRef.current.offsetHeight;
+        if(editNoteClickedFlag== true || flag == true){
+            // console.log(formheightRef.current.offsetHeight); 
             
             notesContainerheightRef.current.style.height = formheightRef.current.offsetHeight + formheightRef.current.offsetTop + 50 + "px";
         }
@@ -32,6 +41,24 @@ function NoteOpened() {
 
     }, [editNoteClickedFlag, getAddImageFlag]);
 
+
+    useEffect(()=>{
+        // console.log(location.state._id);
+        const _id = location.state._id;
+        api.get(`/note/getNote/${_id}`)
+        .then(response =>{
+            // console.log(response.data.note);
+            setNoteDetails(response.data.note)
+        })
+        .catch(error =>{
+            console.log(error);
+            
+        })
+        // setNoteDetails(location.state)
+        backColorRef.current.style.backgroundColor= `${noteDetails.color}`
+        
+    }, [editNoteClickedFlag, noteDetails])
+
     function onEditNoteClicked(){
         setEditNoteClickedFlag(true);
     }
@@ -39,6 +66,26 @@ function NoteOpened() {
     function closeAddEditNoteForm() {
         setEditNoteClickedFlag(false);
     }
+
+    function onCloseBtnClickFunc(){
+        navigate("/notes")
+    }
+
+    function onDeleteBtnClickFunc(){
+        // console.log("Delete clicked");
+        const _id = location.state._id;
+        // console.log(_id);
+        api.delete(`/note/deleteNote/${_id}`)
+        .then((response) =>{
+            // console.log(response);
+            navigate("/notes")    
+        })
+        .catch((error) =>{
+            console.log(error);     
+        })
+        
+    }
+
 
 
     return (
@@ -50,14 +97,15 @@ function NoteOpened() {
                         <h2 className="notesLogoName">NotesHere</h2>
                     </div>
                 </div>
-                <div className="openedNoteDiv">
-                    <h1 className='openedNoteTitle'>Title</h1>
-                    <p className="openedNoteContent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error reprehenderit quidem accusantium! Illum ea praesentium optio nisi qui laudantium sed totam blanditiis harum, consequatur error esse asperiores odit eius architecto. Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nobis laboriosam sunt adipisci in, laudantium voluptatem enim quas minima atque.</p>
+                <div ref={backColorRef} className="openedNoteDiv">
+                    <h1 className='openedNoteTitle'>{noteDetails.title}</h1>
+                    {location.state.contentImage && <img className='openedNoteImage' src={noteDetails.contentImage} alt="image" />}
+                    <p className="openedNoteContent">{noteDetails.content}</p>
                     <div className="openedNoteOptionsDiv">
-                        <button className="openedNotecloseBtn">Close</button>
+                        <button onClick={onCloseBtnClickFunc} className="openedNotecloseBtn">Close</button>
                         <div className="noteEditDeleteBtnsDiv">
                             <button onClick={onEditNoteClicked} className="openedNoteEditBtn">Edit</button>
-                            <button className="openedNoteDeleteBtn">Delete</button>
+                            <button onClick={onDeleteBtnClickFunc} className="openedNoteDeleteBtn">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -65,7 +113,7 @@ function NoteOpened() {
             </div>
             {editNoteClickedFlag &&
                 <div ref={formheightRef} className="notesAddEditNoteFormContainer">
-                    <AddEditNoteForm addOrEdit="Edit" closeAddEditNoteForm={closeAddEditNoteForm} getAddImageFlag={getAddImageFlag}/>
+                    <AddEditNoteForm addOrEdit="Edit" closeAddEditNoteForm={closeAddEditNoteForm} getAddImageFlag={getAddImageFlag} currentNoteDetails={noteDetails}/>
                 </div>
             }
         </>

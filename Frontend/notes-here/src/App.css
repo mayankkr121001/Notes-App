@@ -341,6 +341,11 @@
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 20px;
 }
+.notesListNoNotesMessage{
+    text-align: center;
+    color: rgb(117, 117, 117);
+    margin-top: 30px;
+}
 
 /* NOTES CARD */
 .cardDiv {
@@ -568,19 +573,23 @@
     margin: 20px 0px;
 }
 .addedImageClass{
-    width: 100%;
+    /* width: 100%; */
+    height: 200px;
 }
 .noteTitleInput, .noteContentInputArea{
     padding: 7px 10px;
     outline: none;
     border: 1px solid rgb(142, 142, 142);
     border-radius: 3px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.7px;
     font-weight: 600;
+    font-size: 17px;
+
 }
 .noteContentInputArea{
     height: 300px;
-    line-height: 22px;
+    /* font-size: 17px; */
+    line-height: 23px;
     overflow-y: scroll;
 }
 .noteContentInputArea img{
@@ -639,19 +648,19 @@
     box-shadow: 0px 0px 0px 3px rgb(255, 255, 255);
 }
 .colorBox:nth-child(1){
-    background-color: #e77979;
+    background-color: #FFDAB9;
 }
 .colorBox:nth-child(2){
-    background-color: #c4c25a;
+    background-color: #c5ffc5;
 }
 .colorBox:nth-child(3){
-    background-color: #73c45a;
+    background-color: #f9ffbb;
 }
 .colorBox:nth-child(4){
-    background-color: #68d0e0;
+    background-color: #caf0f8;
 }
 .colorBox:nth-child(5){
-    background-color: #f07ce2;
+    background-color: #FFF0F5;
 }
 .imageSelectorDiv{
     background-color: rgb(45, 45, 45);
@@ -679,7 +688,9 @@
     color: white;
 }
 /* --------------------------------------------------------OPENED NOTE PAGE ------------------------------------------------------------- */
-
+.openedNoteContainer{
+    padding-bottom: 60px;
+}
 .openedNoteNavbar, .profileNavbar{
     height: 100px;
     padding:25px 30px;
@@ -694,14 +705,21 @@
     /* margin-top: 10px; */
     padding: 30px 50px;
     border-radius: 5px;
+    /* margin-bottom: 50px; */
+}
+.openedNoteImage{
+    /* width: 100%; */
+    height: 200px ;
+    /* aspect-ratio: 1; */
+    margin-top: 20px;
 }
 .openedNoteContent{
-    margin: 50px 0px;
+    margin: 30px 0px;
 }
 .openedNoteOptionsDiv{
     display: flex;
     justify-content: space-between;
-    margin-top: 150px;
+    margin-top: 120px;
 }
 
 .openedNotecloseBtn, .openedNoteEditBtn, .openedNoteDeleteBtn{

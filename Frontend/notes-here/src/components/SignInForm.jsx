@@ -47,7 +47,6 @@ function SignInForm({ onSignUpClick }) {
             .then((response) => {
                 // console.log(response)
                 // console.log(response.data.at);
-                // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.at}`
                 if (response.status === 200) {
                     navigate("/notes");
                     setUsername("");
