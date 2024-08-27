@@ -1,0 +1,16 @@
+{
+  "name": "notes-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-server":"cd Backend && npm install",
+    "start-server":"cd Backend && npm run start",
+    "install-client":"cd notes-here && npm install",
+    "build-client":"cd notes-here && npm run build",
+    "start-client":"cd notes-here && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
