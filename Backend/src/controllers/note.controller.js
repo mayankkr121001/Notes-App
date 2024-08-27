@@ -151,10 +151,91 @@ const editNote = AsyncHandler(async (req, res) => {
 
 })
 
+const pinNote = AsyncHandler(async (req, res) =>{
+    const {noteId} = req.params;
+
+    if (!noteId) {
+        throw new ApiError(400, "Note Id is required")
+    }
+
+    const pinnedNote = await Note.findByIdAndUpdate(
+        noteId,
+        {
+            $set:{
+                pinned: true
+            }
+        },
+        {new: true}
+    )
+
+    if(!pinnedNote){
+        throw new ApiError(401, "Something went wrong while pinning the note")
+    }
+
+    return res
+    .status(200)
+    .json({pinnedNote, message: "Note pinned successfully"})
+})
+
+const unpinNote = AsyncHandler (async (req, res) =>{
+    const {noteId} = req.params;
+
+    if (!noteId) {
+        throw new ApiError(400, "Note Id is required")
+    }
+
+    const unpinnedNote = await Note.findByIdAndUpdate(
+        noteId,
+        {
+            $set:{
+                pinned: false
+            }
+        },
+        {new: true}
+    )
+
+    if(!unpinnedNote){
+        throw new ApiError(401, "Something went wrong while unpinning the note")
+    }
+
+    return res
+    .status(200)
+    .json({unpinnedNote, message: "Note unpinned successfully"})
+
+
+
+})
+
+const getPinnedNotes = AsyncHandler(async (req, res) =>{
+    const userId = req.user?._id;
+
+    if (!userId) {
+        throw new ApiError(400, "User is not authorized")
+    }
+
+    const pinnedNotes = await Note.find({
+        $and : [
+            {creater: userId},
+            {pinned: true}
+        ]
+    })
+
+    if (pinnedNotes.length === 0) {
+        throw new ApiError(404, "No pinned notes found")
+    }
+
+    return res
+        .status(200)
+        .json({ pinnedNotes, message: "Pinned notes retrieved successfully" })
+})
+
 export {
     createNote,
     getNotesByUserId,
     getNote,
     deleteNote,
-    editNote
+    editNote,
+    pinNote,
+    unpinNote,
+    getPinnedNotes
 }

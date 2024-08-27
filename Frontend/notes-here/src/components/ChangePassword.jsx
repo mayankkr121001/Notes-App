@@ -11,7 +11,7 @@ function ChangePassword({changePasswordClickFunc}) {
 
     function onSaveBtnClick() {
         if (oldPassword.trim() !== "" && newPassword.trim() !== ""&& confirmPassword.trim() !== "" && newPassword === confirmPassword)  {
-            console.log("ok");
+            // console.log("ok");
             api.patch("/user/updatePassword", { password: oldPassword, newPassword: confirmPassword })
                 .then((response) => {
                     // console.log(response);

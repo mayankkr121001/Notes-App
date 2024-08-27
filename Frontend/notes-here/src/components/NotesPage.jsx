@@ -13,7 +13,11 @@ function NotesPage() {
     const [profileIconClickedFlag, setProfileIconClickedFlag] = useState(false);
     const [addNewNoteClickedFlag, setAddNewNoteClickedFlag] = useState(false);
 
+    const [searchInput, setSearchInput] = useState();
+
     const [notesArray, setNotesArray] = useState([]);
+    const [filteredNotesArray, setFilteredNotesArray] = useState([]);
+    const [pinnedNotesArray, setPinnedNotesArray] = useState([]);
 
     const notesContainerheightRef = useRef(null);
     const formheightRef = useRef(null);
@@ -28,11 +32,6 @@ function NotesPage() {
         }
     }
 
-    // function updateNoteFlag(editFormFlag){
-    //     console.log(editFormFlag);
-        
-    // }
-
 
     useEffect(() => {
         if (window.innerWidth <= "950") {
@@ -41,6 +40,18 @@ function NotesPage() {
         }
 
     }, [])
+    useEffect(() => {
+        api.get("/note/getPinnedNotes")
+        .then((response) => {
+            // console.log(response.data.pinnedNotes);  
+            setPinnedNotesArray(response.data.pinnedNotes)
+        })
+        .catch((error) =>{
+            console.log(error);
+            
+        })
+
+    }, [pinnedNotesArray])
     useEffect(() => {
         function getNotesFunc() {
             api.get('/note/getNotes')
@@ -55,6 +66,10 @@ function NotesPage() {
         }
         getNotesFunc()
         // console.log(notesArray);
+        if (addNewNoteClickedFlag) {
+            setFilteredNotesArray([]);
+        }
+
 
     }, [notesArray, addNewNoteClickedFlag])
 
@@ -87,7 +102,7 @@ function NotesPage() {
 
     const navigate = useNavigate();
     function onLogoutFunc() {
-        console.log("Logout");
+        // console.log("Logout");
         api.post("/user/logout")
             .then((response) => {
                 // console.log(response);
@@ -101,13 +116,50 @@ function NotesPage() {
 
 
     // function to navigate to NoteOpened page
-    function onNoteCardClickFunc(index){
-        // console.log("Note Clicked", index);
-        // console.log(notesArray[index]);
-        
-        navigate("/yourNote", {state: notesArray[index]})
+    function onNoteCardClickFunc(noteId) {
+        // console.log("Note Clicked";
+        // console.log(noteId);
+        navigate("/yourNote", { state: noteId })
     }
 
+    function onSearchInputChange(e) {
+        const inputValue = e.target.value.toLowerCase();
+        setSearchInput(inputValue);
+
+        const filterNotes = notesArray.filter((elm) => elm.title.toLowerCase().includes(inputValue));
+
+        // console.log(filterNotes);
+        setFilteredNotesArray(filterNotes)
+    }
+
+    
+    function pinNoteClickFunc(note) {
+        console.log("pinned Click",note._id);
+
+        const noteId = note._id;
+        api.patch(`/note/pinNote/${noteId}`)
+        .then((response) =>{
+            // console.log(response);
+        })
+        .catch((error) =>{
+            console.log(error);
+            
+        })
+
+    }
+    function unpinNoteClickFunc(note) {
+        // console.log("unpinned Click",note._id);
+        const noteId = note._id;
+        api.patch(`/note/unpinNote/${noteId}`)
+        .then((response) =>{
+            // console.log(response);
+        })
+        .catch((error) =>{
+            console.log(error);
+            
+        })
+
+    }
 
 
     return (
@@ -123,7 +175,7 @@ function NotesPage() {
                     </div>
                     <div className='notesSearchAddBtnDiv'>
                         <div className="notesSearchInput">
-                            <input type="text" placeholder='search' spellCheck="false" />
+                            <input onChange={onSearchInputChange} type="text" placeholder='search' spellCheck="false" value={searchInput} />
                             <div className="notesSearchIcon"><img src={searchIcon} alt="search icon" /></div>
                         </div>
                         <div className="notesAddNoteBtnDiv">
@@ -148,14 +200,14 @@ function NotesPage() {
                             <div className="notesProfileIconDiv">
                                 <img onClick={onProfileIconClick} src={user} alt="user image" />
                                 {profileIconClickedFlag && <div className="notesProfileIconDropdownDiv">
-                                    <p className="yourProfile">Your Profile</p>
+                                    <Link className="YourProfileLink" to="/profile"><p className="yourProfile">Your Profile</p></Link>
                                     <p onClick={onLogoutFunc} className="logoutBtn">Logout</p>
                                 </div>}
                             </div>
                         </div>
                         <div className='notesSearchAddBtnDivMobile'>
                             <div className="notesSearchInput">
-                                <input type="text" placeholder='search' />
+                                <input onChange={onSearchInputChange} type="text" placeholder='search' value={searchInput} />
                                 <div className="notesSearchIcon"><img src={searchIcon} alt="search icon" /></div>
                             </div>
                             <div className="notesAddNoteBtnDiv">
@@ -167,13 +219,25 @@ function NotesPage() {
                 {/*----------- Notes Section ------------ */}
                 <div className="notesSectionContainer">
                     <div className="notesSectionDiv">
+                        {pinnedNotesArray.length !== 0 && <div className="pinnedNotesDiv">
+                            <h2>Pinned Notes</h2>
+                            <div className="pinnedNotesListDiv">
+                                {pinnedNotesArray.map((elm, index) => (
+                                    <NoteCard onNoteCardClickFunc={() => onNoteCardClickFunc(elm._id)} key={index} title={elm.title} color={elm.color} pinNoteClickFunc={(e) => { e.stopPropagation(); unpinNoteClickFunc(elm) }} />
+                                ))}
+                            </div>
+
+                        </div>}
                         <h2>All Notes</h2>
-                        <div className="allNotesLine"></div>
+                        {/* <div className="allNotesLine"></div> */}
                         {notesArray.length === 0 && <p className='notesListNoNotesMessage'>No notes availabe !</p>}
+                        {(searchInput && filteredNotesArray.length === 0) && <p className='notesListNoNotesMessage'>No matching notes !</p>}
                         <div className="notesListDiv">
-                            {notesArray.map((elm, index) => (
-                                <NoteCard onNoteCardClickFunc={() => onNoteCardClickFunc(index)} key={index} title={elm.title} color={elm.color} />
-                            ))}
+                            {searchInput || filteredNotesArray.length !== 0 ? filteredNotesArray.map((elm, index) => (
+                                <NoteCard onNoteCardClickFunc={() => onNoteCardClickFunc(elm._id)} key={index} title={elm.title} color={elm.color} />))
+                                : notesArray.map((elm, index) => (
+                                    <NoteCard onNoteCardClickFunc={() => onNoteCardClickFunc(elm._id)} key={index} title={elm.title} color={elm.color} pinNoteClickFunc={(e) => { e.stopPropagation(); pinNoteClickFunc(elm) }} />
+                                ))}
 
                             {/* <NoteCard />
                             <NoteCard />

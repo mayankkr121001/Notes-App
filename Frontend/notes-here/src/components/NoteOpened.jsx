@@ -43,8 +43,8 @@ function NoteOpened() {
 
 
     useEffect(()=>{
-        // console.log(location.state._id);
-        const _id = location.state._id;
+        // console.log(location.state);
+        const _id = location.state;
         api.get(`/note/getNote/${_id}`)
         .then(response =>{
             // console.log(response.data.note);
@@ -73,7 +73,7 @@ function NoteOpened() {
 
     function onDeleteBtnClickFunc(){
         // console.log("Delete clicked");
-        const _id = location.state._id;
+        const _id = location.state;
         // console.log(_id);
         api.delete(`/note/deleteNote/${_id}`)
         .then((response) =>{
@@ -99,7 +99,7 @@ function NoteOpened() {
                 </div>
                 <div ref={backColorRef} className="openedNoteDiv">
                     <h1 className='openedNoteTitle'>{noteDetails.title}</h1>
-                    {location.state.contentImage && <img className='openedNoteImage' src={noteDetails.contentImage} alt="image" />}
+                    {noteDetails.contentImage && <img className='openedNoteImage' src={noteDetails.contentImage} alt="image" />}
                     <p className="openedNoteContent">{noteDetails.content}</p>
                     <div className="openedNoteOptionsDiv">
                         <button onClick={onCloseBtnClickFunc} className="openedNotecloseBtn">Close</button>

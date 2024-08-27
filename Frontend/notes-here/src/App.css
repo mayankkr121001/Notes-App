@@ -19,7 +19,7 @@
     height: fit-content;
     min-height: 100vh;
     width: 100vw;
-    background: linear-gradient(60deg, rgb(0, 0, 0), #073516, rgb(73, 73, 45));
+    background: linear-gradient(60deg, rgb(0, 0, 0), #02210c, rgb(44, 44, 27));
     color: #ffffff;
     /* backdrop-filter: blur(10px) brightness(0.3); */
 }
@@ -333,12 +333,18 @@
     letter-spacing: 1px;
 
 }
+.pinnedNotesListDiv{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 20px 0px;
 
+}
 .notesListDiv {
     margin: 20px 0px;
     display: grid;
     /* grid-template-columns: repeat(5, auto); */
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 .notesListNoNotesMessage{
@@ -388,6 +394,7 @@
     width: 20px;
     height: 20px;
     margin-left: 10px;
+    z-index: 5;
 }
 .cardOptions img:hover{
     cursor: pointer;
@@ -575,6 +582,7 @@
 .addedImageClass{
     /* width: 100%; */
     height: 200px;
+    max-width: 100%;
 }
 .noteTitleInput, .noteContentInputArea{
     padding: 7px 10px;
@@ -648,19 +656,19 @@
     box-shadow: 0px 0px 0px 3px rgb(255, 255, 255);
 }
 .colorBox:nth-child(1){
-    background-color: #FFDAB9;
+    background-color: #ffff59;
 }
 .colorBox:nth-child(2){
-    background-color: #c5ffc5;
+    background-color: #9bff9b;
 }
 .colorBox:nth-child(3){
-    background-color: #f9ffbb;
+    background-color: #ff4747;
 }
 .colorBox:nth-child(4){
-    background-color: #caf0f8;
+    background-color: #59e3ff;
 }
 .colorBox:nth-child(5){
-    background-color: #FFF0F5;
+    background-color: #ff87af;
 }
 .imageSelectorDiv{
     background-color: rgb(45, 45, 45);
@@ -912,6 +920,10 @@
         margin-bottom: 15px;
         width: 100%;
     }
+    .notesSectionContainer {
+        padding: 20px;
+    }
+
     .profileInfoDiv{
         width: 95vw;
     }

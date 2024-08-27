@@ -18,8 +18,24 @@ function ProfilePage() {
     const [updateUsernameFlag, setUpdateUsernameFlag] = useState(false);
     const [updatePasswordFlag, setUpdatePasswordFlag] = useState(false);
 
-    const { isAuthenticated, user } = useAuth();
+    // const { isAuthenticated, user } = useAuth();
 
+    const [currUser, setCurrUser] = useState()
+
+
+    useEffect(()=>{         
+            api.get('/user/authorized-user')
+                .then((response) => {
+                    // console.log(response.data.user);
+                    setCurrUser(response.data.user)
+                })
+                .catch((error)=>{
+                     console.log(error);
+                     
+                })
+
+        
+    }, [currUser])
 
 
     function updateProfileImage() {
@@ -88,7 +104,7 @@ function ProfilePage() {
 
     return (
         <>
-            {/* {isAuthenticated && user.username} */}
+        {/* <p>{currUser.username}</p> */}
             <div className='profileContainer'>
                 <div className="profileNavbar">
                     <div className='notesLogoDiv'>
@@ -104,12 +120,14 @@ function ProfilePage() {
                     {updatePasswordFlag && <p className='updatePasswordMessage'>Password updated successfully.</p>}
                     <div className="profileDetailsDiv">
                         <div className="profileImageDiv">
-                            {isAuthenticated && user.profileImage ? <img src={user.profileImage} alt="profile image" /> : <img src={userLogo} alt="profile image" />}
+                            {/* {isAuthenticated && user.profileImage ? <img src={user.profileImage} alt="profile image" /> : <img src={userLogo} alt="profile image" />} */}
+                            {currUser?.profileImage ? <img src={currUser.profileImage} alt="profile image" /> : <img src={userLogo} alt="profile image" />}
                             <button onClick={onChangeImageClick} className="changeImageBtn">Change Photo</button>
                             <button onClick={onDeleteImageClick} className="deleteImageBtn">Delete Photo</button>
                         </div>
                         <div className="profileInfoDiv">
-                            {isAuthenticated && <h2>Hello, {user.username}</h2>}
+                            {/* {isAuthenticated && <h2>Hello, {currUser.username}</h2>} */}
+                            {currUser?.username && <h2>Hello, {currUser.username}</h2>}
                             <button onClick={onEditProfileBtnClick} className="editProfileBtn">Edit Profile</button>
                             <button onClick={onChangePasswordBtnClick} className="changePasswordBtn">Change Password</button>
                             {editProfileClickFlag &&

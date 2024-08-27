@@ -19,6 +19,10 @@ const noteSchema = new mongoose.Schema(
         creater:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"User"
+        },
+        pinned:{
+            type: Boolean,
+            default: false
         }
 
     }, {timestamps: true}
