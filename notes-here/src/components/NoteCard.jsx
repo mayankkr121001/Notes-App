@@ -14,7 +14,7 @@ function NoteCard({ title, color, onNoteCardClickFunc , pinNoteClickFunc}) {
         else {
             cardRef.current.style.backgroundColor = `${color}`;
         }
-    }, [pinNoteClickFunc])
+    }, [pinNoteClickFunc, color])
 
     return (
         <>
