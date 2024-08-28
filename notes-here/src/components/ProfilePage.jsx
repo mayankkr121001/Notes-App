@@ -22,9 +22,8 @@ function ProfilePage() {
 
     const [currUser, setCurrUser] = useState()
 
-
-    useEffect(()=>{         
-            api.get('/user/authorized-user')
+    function getAuthorizedUser(){
+        api.get('/user/authorized-user')
                 .then((response) => {
                     // console.log(response.data.user);
                     setCurrUser(response.data.user)
@@ -33,9 +32,22 @@ function ProfilePage() {
                      console.log(error);
                      
                 })
+    }
 
+    useEffect(()=>{         
+            // api.get('/user/authorized-user')
+            //     .then((response) => {
+            //         // console.log(response.data.user);
+            //         setCurrUser(response.data.user)
+            //     })
+            //     .catch((error)=>{
+            //          console.log(error);
+                     
+            //     })
+
+            getAuthorizedUser();
         
-    }, [currUser])
+    }, [])
 
 
     function updateProfileImage() {
@@ -47,6 +59,8 @@ function ProfilePage() {
         setTimeout(() => {
             setUpdateProfileImageFlag(false)
         }, 3000)
+
+        getAuthorizedUser();
     }
 
     function editProfileClickFunc(){
@@ -56,6 +70,8 @@ function ProfilePage() {
         setTimeout(() => {
             setUpdateUsernameFlag(false);
         }, 3000)
+
+        getAuthorizedUser();
     }
     function changePasswordClickFunc(){
         setchangePasswordClickFlag(false);
@@ -64,6 +80,8 @@ function ProfilePage() {
         setTimeout(() => {
             setUpdatePasswordFlag(false);
         }, 3000)
+
+        getAuthorizedUser();
     }
 
     function onChangeImageClick() {
@@ -80,6 +98,8 @@ function ProfilePage() {
                 setTimeout(() => {
                     setDeleteProfileImageFlag(false);
                 }, 3000)
+
+                getAuthorizedUser();
             })
             .catch((err) => {
                 console.log(err);

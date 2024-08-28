@@ -55,9 +55,13 @@ function NoteOpened() {
             
         })
         // setNoteDetails(location.state)
-        backColorRef.current.style.backgroundColor= `${noteDetails.color}`
+        // backColorRef.current.style.backgroundColor= `${noteDetails.color}`
         
-    }, [editNoteClickedFlag, noteDetails])
+    }, [editNoteClickedFlag])
+
+    useEffect(()=>{
+        backColorRef.current.style.backgroundColor= `${noteDetails.color}`
+    }, [noteDetails])
 
     function onEditNoteClicked(){
         setEditNoteClickedFlag(true);

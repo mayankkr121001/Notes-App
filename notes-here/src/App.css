@@ -7,11 +7,6 @@
     font-family: "Nunito", sans-serif;
 }
 
-/* body{
-    scrollbar-gutter: stable both-edges;
-    width: 100vw;
-    overflow: hidden;
-} */
 /* -------------------------------------------------------- HOME PAGE --------------------------------------------------------------*/
 
 .homeContainer,
@@ -21,20 +16,16 @@
     width: 100vw;
     background: linear-gradient(60deg, rgb(0, 0, 0), #02210c, rgb(44, 44, 27));
     color: #ffffff;
-    /* backdrop-filter: blur(10px) brightness(0.3); */
 }
 
 
 /* HOME NAVBAR --------------------------------------------------------------------------------  */
 .homeNavbarContainer {
-    height: 80px;
+    height: 100px;
     padding: 10px 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* background: linear-gradient(60deg,rgb(73, 73, 45), #073516, rgb(0, 0, 0)); */
-    /* background: linear-gradient(60deg, rgb(0, 0, 0), #073516, rgb(73, 73, 45));
-    box-shadow: 0px 2px 15px rgb(0, 0, 0); */
 }
 
 .homeLogoDiv,
@@ -108,25 +99,6 @@
 }
 
 
-/* HOME FOOTER */
-/* .homeFooterContainer {
-    text-align: center; 
-    height: 50px;
-    background-color: #063715;
-     margin-top: 170px;
-    position: sticky;
-    bottom: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-} */
-
-/* .homeFooterContainer p {
-    font-size: 15px;
-    letter-spacing: 1px;
-    color: rgb(131, 131, 131);
-    
-} */
-
 
 /* SIGNUP / SIGNIN FORM --------------------------------------------------------------------------------  */
 .homeSigninSignupFormDiv {
@@ -161,7 +133,6 @@
 .signinInputDiv input {
     width: 100%;
     padding: 8px 10px;
-    /* margin: 10px 0px; */
     margin-top: 20px;
     outline: none;
     border: none;
@@ -169,13 +140,11 @@
     color: black;
     font-size: 15px;
     letter-spacing: 1px;
-    /* border-radius: 5px; */
 }
 .signupInputDiv p, .signinInputDiv p{
     color: red;
     text-align: left;
     font-size: 12px;
-    /* margin-bottom: 10px; */
 }
 
 .formSignupBtnDiv,
@@ -253,7 +222,6 @@
     padding: 10px 30px;
     font-weight: 700;
     letter-spacing: 1px;
-    /* background-color: #9be69d; */
     background-color: #407cff;
     border: none;
     border-radius: 5px;
@@ -262,7 +230,6 @@
 }
 
 .notesAddNoteBtnDiv button:hover {
-    /* background-color: #7fc282; */
     background-color: #356adb;
     cursor: pointer;
     transition: 0.2s ease-in-out;
@@ -286,20 +253,17 @@
 }
 .notesProfileIconDiv img:hover {
     cursor: pointer;
-    /* box-shadow: 0px 5px 15px black; */
 }
 
 .notesProfileIconDropdownDiv {
     width: 130px;
     border-radius: 5px;
-    /* border: 1px solid rgb(85, 173, 132); */
     border: 1px solid #407cff;
     padding:10px 20px;
     font-weight: 600;
     position: absolute;
     top: 40px ;
     right: 0;
-    /* display: none; */
 }
 .notesProfileIconDropdownDiv > .YourProfileLink{
     text-decoration:none;
@@ -314,7 +278,7 @@
     transition: 0.1s ease-in-out;
 }
 
-/* Notes Section */
+/* -------- Notes Section -------- */
 .notesSectionContainer {
     padding: 20px 70px;
 }
@@ -343,7 +307,6 @@
 .notesListDiv {
     margin: 20px 0px;
     display: grid;
-    /* grid-template-columns: repeat(5, auto); */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
@@ -353,15 +316,11 @@
     margin-top: 30px;
 }
 
-/* NOTES CARD */
+/*----------------------------- NOTES CARD ------------------------------------*/
 .cardDiv {
     height: 160px;
-    /* width: 230px; */
     background-color: #ffffff;
-    /* background-color: transparent; */
     border-radius: 5px;
-    /* border: 1px solid rgb(85, 173, 132); */
-    /* border: 1px solid #315cb9; */
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
@@ -370,13 +329,11 @@
 
 }
 .cardDiv:hover{
-    /* box-shadow: 0px 0px 5px #315cb9; */
     transform: scale(1.02);
     transition: 0.2s ease-in-out;
 }
 
 .cardDiv h3 {
-    /* color: #ffffff; */
     color: black;
     letter-spacing: 1px;
 }
@@ -460,13 +417,11 @@
     font-size: 35px;
 }
 .editProfileBtn, .changePasswordBtn{
-    /* width: 100px; */
     padding: 5px 20px;
     margin-top: 10px;
     margin-right: 20px;
     font-size: 12px;
     font-weight: 700;
-    /* background-color: #9be69d; */
     background-color: #407cff;
     border: none;
     border-radius: 5px;
@@ -478,7 +433,7 @@
     transition: 0.2s ease-in-out;
 }
 
-/* EDIT PROFILE/ CHANGE PASSWORD / UPLOAD IMAGE*/
+/*-------------------------------- EDIT PROFILE/ CHANGE PASSWORD / UPLOAD IMAGE-----------------------------------------*/
 .editProfleChangePasswordFormContainer{
     margin-top: 35px;
 }
@@ -527,7 +482,7 @@
     font-weight: bold;
 }
 
-/* ----UPLOAD PROFILE PICTURE ----*/
+/* --------------------------------UPLOAD PROFILE PICTURE -------------------------------------------*/
 
 .uploadImageContainer input{
     margin:10px 0px 20px 0px;
@@ -556,12 +511,9 @@
     background-color: white;
     color: black;
     width: 600px;
-    /* height: 82vh; */
     padding: 20px;
     border-radius: 5px;
     position: relative;
-    /* overflow-y : scroll;
-    scroll-behavior: smooth; */
 }
 .addEditcloseIcon{
     position: absolute;
@@ -580,7 +532,6 @@
     margin: 20px 0px;
 }
 .addedImageClass{
-    /* width: 100%; */
     height: 200px;
     max-width: 100%;
 }
@@ -596,7 +547,6 @@
 }
 .noteContentInputArea{
     height: 300px;
-    /* font-size: 17px; */
     line-height: 23px;
     overflow-y: scroll;
 }
@@ -675,7 +625,6 @@
     width: 93.5%;
     padding: 20px;
     border-radius: 4px;
-    /* height: 100px; */
     position: absolute;
     bottom: 65px;
 }
@@ -708,17 +657,12 @@
     color: black;
     width: 70%;
     height: fit-content;
-    /* min-height: 430px; */
     margin:auto;
-    /* margin-top: 10px; */
     padding: 30px 50px;
     border-radius: 5px;
-    /* margin-bottom: 50px; */
 }
 .openedNoteImage{
-    /* width: 100%; */
     height: 200px ;
-    /* aspect-ratio: 1; */
     margin-top: 20px;
 }
 .openedNoteContent{
@@ -754,9 +698,8 @@
     background-color:#bd3434;
 }
 
-/* Responsiveness------------ --------------------------------------------------------------------  */
+/* -------------------Responsiveness---------------------------------------------------------------------------------  */
 .notesNavbarContainerMobile {
-    /* height: 90px; */
     padding: 20px 20px;
 }
 
@@ -771,7 +714,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* width: 100vw; */
+
 }
 
 .notesSearchAddBtnDivMobile>.notesSearchInput input {
@@ -846,9 +789,6 @@
         font-size: 13px;
     }
 
-    /* .homeFooterContainer p {
-        font-size: 12px;
-    } */
 
     .homeSigninSignupFormDiv {
         padding: 0px 0px 50px 0px;
@@ -913,7 +853,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* width: 100vw; */
     }
 
     .notesSearchAddBtnDivMobile>.notesSearchInput {

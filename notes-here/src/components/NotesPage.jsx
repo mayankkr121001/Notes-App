@@ -40,38 +40,48 @@ function NotesPage() {
         }
 
     }, [])
-    useEffect(() => {
+
+    function getPinnedNotes(){
         api.get("/note/getPinnedNotes")
-        .then((response) => {
-            // console.log(response.data.pinnedNotes);  
-            setPinnedNotesArray(response.data.pinnedNotes)
-        })
-        .catch((error) =>{
-            console.log(error);
-            
-        })
+            .then((response) => {
+                // console.log(response.data.pinnedNotes);  
+                setPinnedNotesArray(response.data.pinnedNotes)
+            })
+            .catch((error) => {
+                // console.log(error.response.data.message);
+                if(error.response.data.message === "No pinned notes found"){
+                    setPinnedNotesArray([])
+                }
 
-    }, [pinnedNotesArray])
+            })
+    }
     useEffect(() => {
-        function getNotesFunc() {
-            api.get('/note/getNotes')
-                .then((response) => {
-                    // console.log(response.data.notes);
-                    setNotesArray(response.data.notes)
+        getPinnedNotes();
 
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        }
-        getNotesFunc()
+    }, [])
+
+
+
+    useEffect(() => {
+
+        api.get('/note/getNotes')
+            .then((response) => {
+                // console.log(response.data.notes);
+                setNotesArray(response.data.notes)
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+
         // console.log(notesArray);
         if (addNewNoteClickedFlag) {
             setFilteredNotesArray([]);
         }
 
 
-    }, [notesArray, addNewNoteClickedFlag])
+    }, [addNewNoteClickedFlag])
 
     useEffect(() => {
         // console.log("useEffect working");
@@ -132,32 +142,34 @@ function NotesPage() {
         setFilteredNotesArray(filterNotes)
     }
 
-    
+
     function pinNoteClickFunc(note) {
-        console.log("pinned Click",note._id);
+        // console.log("pinned Click",note._id);
 
         const noteId = note._id;
         api.patch(`/note/pinNote/${noteId}`)
-        .then((response) =>{
-            // console.log(response);
-        })
-        .catch((error) =>{
-            console.log(error);
-            
-        })
+            .then((response) => {
+                // console.log(response);
+                getPinnedNotes();
+            })
+            .catch((error) => {
+                console.log(error);
+
+            })
 
     }
     function unpinNoteClickFunc(note) {
         // console.log("unpinned Click",note._id);
         const noteId = note._id;
         api.patch(`/note/unpinNote/${noteId}`)
-        .then((response) =>{
-            // console.log(response);
-        })
-        .catch((error) =>{
-            console.log(error);
-            
-        })
+            .then((response) => {
+                // console.log(response);
+                getPinnedNotes();
+            })
+            .catch((error) => {
+                console.log(error);
+
+            })
 
     }
 

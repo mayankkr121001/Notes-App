@@ -14,7 +14,7 @@ const noteSchema = new mongoose.Schema(
             type:String
         },
         color:{
-            type:String
+            type:String,
         },
         creater:{
             type:mongoose.Schema.Types.ObjectId,

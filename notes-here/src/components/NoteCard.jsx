@@ -8,13 +8,13 @@ function NoteCard({ title, color, onNoteCardClickFunc , pinNoteClickFunc}) {
     useEffect(() => {
         // console.log(color);
 
-        if (color === null) {
-            cardRef.current.style.backgroundColor = `white`;
+        if (color == null) {
+            cardRef.current.style.backgroundColor = "white";
         }
         else {
             cardRef.current.style.backgroundColor = `${color}`;
         }
-    }, [color])
+    }, [pinNoteClickFunc])
 
     return (
         <>
