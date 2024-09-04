@@ -1,5 +1,5 @@
- import React, { useState } from 'react'
-// import axios from 'axios';
+import React, { useState } from 'react'
+import { ColorRing } from 'react-loader-spinner'
 import api from '../interceptors/axios.js';
 
 
@@ -16,7 +16,7 @@ function SignUpForm({ onSignInClick }) {
     const [signedUpFlag, setSignedUpFlag] = useState(false);
     const [signUpError, setSignUPError] = useState("");
 
-
+    const [loading, setLoading] = useState(false);
 
 
     function inputErrorFunc() {
@@ -26,18 +26,20 @@ function SignUpForm({ onSignInClick }) {
             confirmPassword: ""
         })
         if (username.trim() === "") {
-            setInputError((prev) => ({ ...prev, username: "* username is required" }))
-            // setInputError({username: "* username is required" })
+            setInputError((prev) => ({ ...prev, username: "* username is required" }));
+            setLoading(false);
         }
         if (password.trim() === "") {
-            setInputError((prev) => ({ ...prev, password: "* password is required" }))
-
+            setInputError((prev) => ({ ...prev, password: "* password is required" }));
+            setLoading(false);
         }
         if (confirmPassword.trim() === "") {
-            setInputError((prev) => ({ ...prev, confirmPassword: "* confirm password is required" }))
+            setInputError((prev) => ({ ...prev, confirmPassword: "* confirm password is required" }));
+            setLoading(false);
         }
         else if (confirmPassword !== password) {
-            setInputError((prev) => ({ ...prev, confirmPassword: "* please enter same as above password" }))
+            setInputError((prev) => ({ ...prev, confirmPassword: "* please enter same as above password" }));
+            setLoading(false);
         }
 
     }
@@ -45,6 +47,7 @@ function SignUpForm({ onSignInClick }) {
     function signUpFunc(e) {
         e.preventDefault();
         // console.log(username, password, confirmPassword);
+        setLoading(true);
         inputErrorFunc();
 
         api.post("/user/register", {
@@ -62,22 +65,26 @@ function SignUpForm({ onSignInClick }) {
                     setUsername("");
                     setPassword("");
                     setConfirmPassword("");
+                    setLoading(false);
+
                 }
 
             })
             .catch((error) => {
                 // console.log(error.response.data.message);
                 // console.log(error.message);
-                if(error.message == "Network Error"){
+                if (error.message == "Network Error") {
                     setSignUPError("Server problem - Can't Register Now");
                 }
-                else{
+                else {
                     setSignUPError(error.response.data.message);
                 }
                 // setSignUPError(error.response.data.message);
                 setTimeout(() => {
                     setSignUPError("");
                 }, 3000);
+
+                setLoading(false);
             })
 
 
@@ -88,6 +95,15 @@ function SignUpForm({ onSignInClick }) {
         <>
             <form className="signupDiv">
                 <h2>Sign Up</h2>
+                {loading && <ColorRing
+                    visible={true}
+                    height="50"
+                    width="50"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                />}
                 {signedUpFlag && <h3 className='signedUpMessage'>Signed up successfully</h3>}
                 {signUpError != "" && <h3 className='signUpError'>{signUpError}</h3>}
                 <div className='signupInputDiv'>

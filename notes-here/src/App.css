@@ -6,6 +6,9 @@
     box-sizing: border-box;
     font-family: "Nunito", sans-serif;
 }
+html{
+    overflow-x: hidden;
+}
 
 /* -------------------------------------------------------- HOME PAGE --------------------------------------------------------------*/
 
@@ -14,7 +17,8 @@
     height: fit-content;
     min-height: 100vh;
     width: 100vw;
-    background: linear-gradient(60deg, rgb(0, 0, 0), #02210c, rgb(44, 44, 27));
+    background: linear-gradient(60deg, #000000, #04250f);
+    /* background: linear-gradient(60deg, #000000, #02210c, #2c2c1b); */
     color: #ffffff;
 }
 

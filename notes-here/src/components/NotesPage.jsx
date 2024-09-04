@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ColorRing } from 'react-loader-spinner'
+
 import logo from "../assets/logo.png"
 import searchIcon from "../assets/searchIcon.png"
 import user from "../assets/user.png"
@@ -12,6 +14,8 @@ function NotesPage() {
     const [navbarMobileFlag, setNavbarMobileFlag] = useState(false);
     const [profileIconClickedFlag, setProfileIconClickedFlag] = useState(false);
     const [addNewNoteClickedFlag, setAddNewNoteClickedFlag] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const [searchInput, setSearchInput] = useState();
 
@@ -42,10 +46,14 @@ function NotesPage() {
     }, [])
 
     function getPinnedNotes(){
+        setLoading(true);
+
         api.get("/note/getPinnedNotes")
             .then((response) => {
                 // console.log(response.data.pinnedNotes);  
-                setPinnedNotesArray(response.data.pinnedNotes)
+                setPinnedNotesArray(response.data.pinnedNotes);
+
+                setLoading(false);
             })
             .catch((error) => {
                 // console.log(error.response.data.message);
@@ -63,15 +71,18 @@ function NotesPage() {
 
 
     useEffect(() => {
+        setLoading(true);
 
         api.get('/note/getNotes')
             .then((response) => {
                 // console.log(response.data.notes);
-                setNotesArray(response.data.notes)
+                setNotesArray(response.data.notes);
 
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
+
             })
 
 
@@ -112,10 +123,12 @@ function NotesPage() {
 
     const navigate = useNavigate();
     function onLogoutFunc() {
+        setLoading(true);
         // console.log("Logout");
         api.post("/user/logout")
             .then((response) => {
                 // console.log(response);
+                setLoading(false);
                 navigate("/")
             })
             .catch((error) => {
@@ -127,8 +140,6 @@ function NotesPage() {
 
     // function to navigate to NoteOpened page
     function onNoteCardClickFunc(noteId) {
-        // console.log("Note Clicked";
-        // console.log(noteId);
         navigate("/yourNote", { state: noteId })
     }
 
@@ -138,19 +149,20 @@ function NotesPage() {
 
         const filterNotes = notesArray.filter((elm) => elm.title.toLowerCase().includes(inputValue));
 
-        // console.log(filterNotes);
         setFilteredNotesArray(filterNotes)
     }
 
 
     function pinNoteClickFunc(note) {
         // console.log("pinned Click",note._id);
+        setLoading(true);
 
         const noteId = note._id;
         api.patch(`/note/pinNote/${noteId}`)
             .then((response) => {
                 // console.log(response);
                 getPinnedNotes();
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -160,11 +172,13 @@ function NotesPage() {
     }
     function unpinNoteClickFunc(note) {
         // console.log("unpinned Click",note._id);
+        setLoading(true);
         const noteId = note._id;
         api.patch(`/note/unpinNote/${noteId}`)
             .then((response) => {
                 // console.log(response);
                 getPinnedNotes();
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -230,6 +244,15 @@ function NotesPage() {
 
                 {/*----------- Notes Section ------------ */}
                 <div className="notesSectionContainer">
+                {loading && <div style={{textAlign: "center"}}><ColorRing
+                    visible={true}
+                    height="50"
+                    width="50"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                /></div>}
                     <div className="notesSectionDiv">
                         {pinnedNotesArray.length !== 0 && <div className="pinnedNotesDiv">
                             <h2>Pinned Notes</h2>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import axios from 'axios';
+import { ColorRing } from 'react-loader-spinner'
 import api from '../interceptors/axios.js';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../utils/auth.js';
@@ -16,6 +16,7 @@ function SignInForm({ onSignUpClick }) {
     });
 
     const [signInError, setSignInError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -28,9 +29,13 @@ function SignInForm({ onSignUpClick }) {
         })
         if (username.trim() === "") {
             setInputError((prev) => ({ ...prev, username: "* username is required" }))
+            setLoading(false);
+
         }
         if (password.trim() === "") {
             setInputError((prev) => ({ ...prev, password: "* password is required" }))
+            setLoading(false);
+
 
         }
     }
@@ -38,12 +43,13 @@ function SignInForm({ onSignUpClick }) {
     function signInFunc(e) {
         e.preventDefault();
         // console.log(username, password, confirmPassword);
+        setLoading(true);
         inputErrorFunc();
 
 
         api.post("/user/login", {
             username, password
-        }, { withCredentials: true })
+        })
             .then((response) => {
                 // console.log(response)
                 // console.log(response.data.at);
@@ -51,7 +57,10 @@ function SignInForm({ onSignUpClick }) {
                     navigate("/notes");
                     setUsername("");
                     setPassword("");
+
                 }
+                setLoading(false);
+
 
             })
             .catch((error) => {
@@ -69,18 +78,20 @@ function SignInForm({ onSignUpClick }) {
                     setSignInError("");
                 }, 3000);
 
+                setLoading(false);
+
             })
 
-            // api.get('/user/authorized-user')
-            //     .then((response) => {
-            //         console.log(response)
-            //         // setAuth({ isAuthenticated: true, user: response.data.user });
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //         // setAuth({ isAuthenticated: false, user: null });
+        // api.get('/user/authorized-user')
+        //     .then((response) => {
+        //         console.log(response)
+        //         // setAuth({ isAuthenticated: true, user: response.data.user });
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //         // setAuth({ isAuthenticated: false, user: null });
 
-            //     })
+        //     })
 
         // axios.defaults.headers.common['Authorization'] = `Bearer ${data['token']}`
 
@@ -90,6 +101,15 @@ function SignInForm({ onSignUpClick }) {
         <>
             <form className="signinDiv">
                 <h2>Sign In</h2>
+                {loading && <ColorRing
+                    visible={true}
+                    height="50"
+                    width="50"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                />}
                 {signInError != "" && <h3 className='signInError'>{signInError}</h3>}
                 <div className='signinInputDiv'>
                     <input onChange={(e) => setUsername(e.target.value)} type="text" placeholder='Username' value={username} />

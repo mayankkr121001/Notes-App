@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { ColorRing } from 'react-loader-spinner'
 import colors from "../assets/colors.png"
 import image from "../assets/image.png"
 import close from "../assets/close.png"
@@ -11,7 +12,8 @@ function AddEditNoteForm({ closeAddEditNoteForm, getAddImageFlag, addOrEdit, cur
   const [openImageSelectorFlag, setOpenImageSelectorFlag] = useState(false);
   const [imageSelectedFlag, setImageSelectedFlag] = useState(false);
   const [addedImage, setAddedImage] = useState("");
-  // const [colorSelectedFlag, setColorSelectedFlag] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -83,16 +85,19 @@ function AddEditNoteForm({ closeAddEditNoteForm, getAddImageFlag, addOrEdit, cur
       formData.append('contentImage', contentImage);
       // console.log("addClicked");
       // console.log(addedImage);
+      setLoading(true);
 
       api.post("/note/createNote", formData)
         .then((response) => {
           // console.log(response);
-
           closeAddEditNoteForm();
+
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error);
 
+          // setLoading(false);
         })
 
     }
@@ -104,16 +109,20 @@ function AddEditNoteForm({ closeAddEditNoteForm, getAddImageFlag, addOrEdit, cur
       formData.append('color', color);
       formData.append('contentImage', contentImage);
 
+      setLoading(true);
+
       function editNoteFunc() {
         api.patch(`/note/editNote/${currentNoteDetails._id}`, formData)
           .then(response => {
             // console.log(response);
             closeAddEditNoteForm();
 
+            setLoading(false);
           })
           .catch(error => {
             console.log(error);
 
+            // setLoading(false);
           })
 
       }
@@ -130,6 +139,15 @@ function AddEditNoteForm({ closeAddEditNoteForm, getAddImageFlag, addOrEdit, cur
       <div className="addEditNoteContainer">
         <img onClick={closeAddEditNoteForm} className="addEditcloseIcon" src={close} alt='close button' />
         <h2>{addOrEdit} Note</h2>
+        {loading && <div style={{textAlign: "center"}}><ColorRing
+                    visible={true}
+                    height="50"
+                    width="50"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                /> </div>}
         <div className="noteTitleContentDiv">
           <input onChange={e => setTitle(e.target.value)} className='noteTitleInput' type="text" placeholder='Title' spellCheck="false" value={title} />
 

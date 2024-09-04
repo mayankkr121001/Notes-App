@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { ColorRing } from 'react-loader-spinner'
 
 import logo from "../assets/logo.png"
 // import image from "../assets/image.png"
@@ -9,6 +10,8 @@ import api from '../interceptors/axios.js'
 
 function NoteOpened() {
     const [editNoteClickedFlag, setEditNoteClickedFlag] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const [noteDetails, setNoteDetails] = useState({});
     const location = useLocation();
@@ -44,11 +47,15 @@ function NoteOpened() {
 
     useEffect(()=>{
         // console.log(location.state);
+        setLoading(true);
+
         const _id = location.state;
         api.get(`/note/getNote/${_id}`)
         .then(response =>{
             // console.log(response.data.note);
             setNoteDetails(response.data.note)
+
+            setLoading(false);
         })
         .catch(error =>{
             console.log(error);
@@ -77,12 +84,16 @@ function NoteOpened() {
 
     function onDeleteBtnClickFunc(){
         // console.log("Delete clicked");
+        setLoading(true);
+
         const _id = location.state;
         // console.log(_id);
         api.delete(`/note/deleteNote/${_id}`)
         .then((response) =>{
             // console.log(response);
-            navigate("/notes")    
+            setLoading(false);
+            
+            navigate("/notes")             
         })
         .catch((error) =>{
             console.log(error);     
@@ -102,6 +113,15 @@ function NoteOpened() {
                     </div>
                 </div>
                 <div ref={backColorRef} className="openedNoteDiv">
+                {loading && <div style={{textAlign: "center"}}><ColorRing
+                    visible={true}
+                    height="50"
+                    width="50"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                /></div>}
                     <h1 className='openedNoteTitle'>{noteDetails.title}</h1>
                     {noteDetails.contentImage && <img className='openedNoteImage' src={noteDetails.contentImage} alt="image" />}
                     <p className="openedNoteContent">{noteDetails.content}</p>

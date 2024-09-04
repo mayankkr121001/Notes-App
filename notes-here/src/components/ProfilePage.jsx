@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { ColorRing } from 'react-loader-spinner'
+
 import userLogo from "../assets/user.png"
 import logo from "../assets/logo.png"
 import EditProfile from "./EditProfile"
@@ -18,35 +20,31 @@ function ProfilePage() {
     const [updateUsernameFlag, setUpdateUsernameFlag] = useState(false);
     const [updatePasswordFlag, setUpdatePasswordFlag] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     // const { isAuthenticated, user } = useAuth();
 
     const [currUser, setCurrUser] = useState()
 
-    function getAuthorizedUser(){
+    function getAuthorizedUser() {
+        setLoading(true);
+
         api.get('/user/authorized-user')
-                .then((response) => {
-                    // console.log(response.data.user);
-                    setCurrUser(response.data.user)
-                })
-                .catch((error)=>{
-                     console.log(error);
-                     
-                })
+            .then((response) => {
+                // console.log(response.data.user);
+                setCurrUser(response.data.user)
+
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+
+            })
     }
 
-    useEffect(()=>{         
-            // api.get('/user/authorized-user')
-            //     .then((response) => {
-            //         // console.log(response.data.user);
-            //         setCurrUser(response.data.user)
-            //     })
-            //     .catch((error)=>{
-            //          console.log(error);
-                     
-            //     })
+    useEffect(() => {   
+        getAuthorizedUser();
 
-            getAuthorizedUser();
-        
     }, [])
 
 
@@ -63,7 +61,8 @@ function ProfilePage() {
         getAuthorizedUser();
     }
 
-    function editProfileClickFunc(){
+    function editProfileClickFunc() {
+
         setEditProfileClickFlag(false);
 
         setUpdateUsernameFlag(true);
@@ -73,7 +72,7 @@ function ProfilePage() {
 
         getAuthorizedUser();
     }
-    function changePasswordClickFunc(){
+    function changePasswordClickFunc() {
         setchangePasswordClickFlag(false);
 
         setUpdatePasswordFlag(true);
@@ -91,15 +90,18 @@ function ProfilePage() {
     }
 
     function onDeleteImageClick() {
+        setLoading(true);
+
         api.delete("/user/deleteProfileImage")
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setDeleteProfileImageFlag(true);
                 setTimeout(() => {
                     setDeleteProfileImageFlag(false);
                 }, 3000)
 
                 getAuthorizedUser();
+                setLoading(false);
             })
             .catch((err) => {
                 console.log(err);
@@ -124,7 +126,7 @@ function ProfilePage() {
 
     return (
         <>
-        {/* <p>{currUser.username}</p> */}
+            {/* <p>{currUser.username}</p> */}
             <div className='profileContainer'>
                 <div className="profileNavbar">
                     <div className='notesLogoDiv'>
@@ -134,6 +136,15 @@ function ProfilePage() {
                 </div>
                 <div className="profileDiv">
                     <h1>Profile</h1>
+                    {loading && <div style={{textAlign: "center"}}><ColorRing
+                    visible={true}
+                    height="50"
+                    width="50"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                /> </div>}
                     {deleteProfileImageFlag && <p className='deleteProfileImageMessage'>Profile image deleted successfully.</p>}
                     {updateProfileImageFlag && <p className='updateProfileImageMessage'>Profile image updated successfully.</p>}
                     {updateUsernameFlag && <p className='updateUsernameMessage'>Username updated successfully.</p>}
@@ -152,13 +163,13 @@ function ProfilePage() {
                             <button onClick={onChangePasswordBtnClick} className="changePasswordBtn">Change Password</button>
                             {editProfileClickFlag &&
                                 <div className='editProfleChangePasswordFormContainer'>
-                                    <EditProfile editProfileClickFunc={editProfileClickFunc}/>
+                                    <EditProfile editProfileClickFunc={editProfileClickFunc} />
                                     {/* <ChangePassword /> */}
                                 </div>
                             }
                             {changePasswordClickFlag &&
                                 <div className='editProfleChangePasswordFormContainer'>
-                                    <ChangePassword changePasswordClickFunc={changePasswordClickFunc}/>
+                                    <ChangePassword changePasswordClickFunc={changePasswordClickFunc} />
                                 </div>
                             }
                             {changeImageClickFlag &&
