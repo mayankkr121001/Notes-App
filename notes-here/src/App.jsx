@@ -16,11 +16,11 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
 
-      {/* <Route path="/notes" element={<NotesPage />} /> */}
       <Route element={<ProtectedRoute />}>
         <Route path="/notes" element={<NotesPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/yournote" element={<NoteOpened />} />
+        <Route path="*" />
       </Route>
 
     </Routes>

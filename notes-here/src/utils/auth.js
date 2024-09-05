@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import api from "../interceptors/axios.js"
 
 function useAuth() {
-    const [auth, setAuth] = useState({ isAuthenticated: false, user: null });
+    const [auth, setAuth] = useState({ isAuthenticated: undefined, user: null });
 
     useEffect(() => {
         const checkAuthStatus = async () => {

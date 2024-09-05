@@ -21,7 +21,6 @@ function SignInForm({ onSignUpClick }) {
     const navigate = useNavigate();
 
 
-
     function inputErrorFunc() {
         setInputError({
             username: "",
@@ -82,18 +81,6 @@ function SignInForm({ onSignUpClick }) {
 
             })
 
-        // api.get('/user/authorized-user')
-        //     .then((response) => {
-        //         console.log(response)
-        //         // setAuth({ isAuthenticated: true, user: response.data.user });
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //         // setAuth({ isAuthenticated: false, user: null });
-
-        //     })
-
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${data['token']}`
 
     }
 
